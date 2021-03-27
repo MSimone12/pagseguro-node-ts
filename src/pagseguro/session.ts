@@ -1,19 +1,32 @@
-import axios, { AxiosRequestConfig } from "axios";
-import xml from 'xmltojson';
+import axios, { AxiosRequestConfig } from 'axios';
+import { fromXML } from '../utils/xml';
 
 interface SessionResponse {
-  id: string
+  id: string;
 }
 
-const config : AxiosRequestConfig = {
+interface XMLSessionResponse {
+  id: Array<string>;
+}
+
+interface XMLResponse {
+  session: XMLSessionResponse;
+}
+
+const config: AxiosRequestConfig = {
   headers: {},
   data: '',
-  method: 'POST'
-}
+  method: 'POST',
+};
 
-export const createSession = async (url: string) : Promise<SessionResponse> => axios({
-  ...config, 
-  url: url,
-}).then(res => {
-  return xml.parseString(res.data, {childrenAsArray: false}) as SessionResponse;
-});
+export const createSession = async (url: string): Promise<SessionResponse> => {
+  const { data } = await axios({
+    ...config,
+    url: url,
+  });
+
+  const { session } = (await fromXML(data)) as XMLResponse;
+  return {
+    id: session.id[0],
+  } as SessionResponse;
+};
