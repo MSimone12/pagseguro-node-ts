@@ -5,11 +5,33 @@
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx tsc && nodemon build/server.js",
+    "prepublish": "tsc",
+    "build": "tsc",
     "dev:server": "NODE_ENV=development ts-node-dev --transpile-only --ignore-watch node_modules ./src/server.ts"
   },
-  "author": "Matheus Simone <matheusosimone@hotmail.com>",
-  "license": "ISC",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSimone12/pagseguro-node-ts.git"
+  },
+  "keywords": [
+    "pagseguro",
+    "node",
+    "ts",
+    "pag", 
+    "seguro", 
+    "typescript"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MSimone12/pagseguro-node-ts/issues"
+  },
+  "homepage": "https://github.com/MSimone12/pagseguro-node-ts#readme",
+  "author": "Matheus Simone <matheusosimone@hotmail.com>",  
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/express": "^4.17.11",

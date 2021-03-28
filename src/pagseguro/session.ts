@@ -1,6 +1,6 @@
 import { fromXML } from '../utils/xml';
 import axios, { AxiosRequestConfig } from 'axios';
-import { SessionResponse, SessionXMLResponse } from '../utils/interface';
+import { SessionResponse, SessionXMLResponse } from '../interface';
 
 const config: AxiosRequestConfig = {
   headers: {},

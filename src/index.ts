@@ -1,6 +1,6 @@
 import { getCardToken } from './pagseguro/cardToken';
 import { createSession } from './pagseguro/session';
-import { CreditCardToken, PagSeguroProps } from './utils/interface';
+import { CreditCardToken, PagSeguroProps } from './interface';
 
 import { checkout } from './pagseguro/checkout';
 

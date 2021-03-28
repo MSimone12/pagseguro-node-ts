@@ -1,14 +1,13 @@
-import express, { Request, Response } from 'express';
-import PagSeguroCheckout from '.';
-import { PagSeguroProps, PaymentMethodsResponse } from './utils/interface';
+import express from 'express';
+import PagSeguroCheckout from '../build';
 
 const app = express();
 
 app.use(express.json());
 
-const authData: PagSeguroProps = {
-  email: 'hurryapp7@gmail.com',
-  token: 'A54DD918ABD14C97B34CDD9A2A99193F',
+const authData = {
+  email: 'lucorrea@uolinc.com',
+  token: '5D4E19FBCF9C4CE1B20FA94485BAE018',
   mode: 'sandbox',
 };
 

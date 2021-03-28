@@ -55,7 +55,7 @@ declare module Checkout {
   export interface BillingAddress {
     street: string;
     number: string;
-    complement: string;
+    complement?: string;
     district: string;
     city: string;
     state: string;

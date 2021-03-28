@@ -1,9 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
-import {
-  CreditCardTokenRequest,
-  CreditCardTokenResponse,
-} from '../utils/interface';
+import { CreditCardTokenRequest, CreditCardTokenResponse } from '../interface';
 
 const config = (data: string): AxiosRequestConfig => ({
   method: 'post',
