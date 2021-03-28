@@ -1,16 +1,14 @@
 {
-  "name": "pagseguro-node-ts",
-  "version": "0.0.1",
-  "description": "PagSeguro Checkout API Integration",
-  "main": "build/index.js",
+  "name": "pagseguro-checkout-ts",
+  "version": "0.1.0",
+  "description": "PagSeguro Checkout API",
+  "main": "./build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc",
-    "build": "tsc",
-    "dev:server": "NODE_ENV=development ts-node-dev --transpile-only --ignore-watch node_modules ./src/server.ts"
+    "prepublish": "npm run build",
+    "build": "tsc"
   },
   "files": [
-    "dist",
+    "build",
     "LICENSE",
     "README.md"
   ],
