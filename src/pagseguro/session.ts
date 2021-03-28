@@ -1,17 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios';
 import { fromXML } from '../utils/xml';
-
-interface SessionResponse {
-  id: string;
-}
-
-interface XMLSessionResponse {
-  id: Array<string>;
-}
-
-interface XMLResponse {
-  session: XMLSessionResponse;
-}
+import axios, { AxiosRequestConfig } from 'axios';
+import { SessionResponse, SessionXMLResponse } from '../utils/interface';
 
 const config: AxiosRequestConfig = {
   headers: {},
@@ -25,8 +14,8 @@ export const createSession = async (url: string): Promise<SessionResponse> => {
     url: url,
   });
 
-  const { session } = (await fromXML(data)) as XMLResponse;
+  const { session } = (await fromXML(data)) as SessionXMLResponse;
   return {
     id: session.id[0],
-  } as SessionResponse;
+  };
 };
