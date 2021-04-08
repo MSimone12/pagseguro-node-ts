@@ -6,8 +6,8 @@ import { checkout } from './pagseguro/checkout';
 import { getTransaction } from './pagseguro/getTransaction';
 import * as Checkout from './types/checkout';
 
-const productionURL = 'https://ws.pagseguro.uol.com.br/';
-const sandboxURL = 'https://ws.sandbox.pagseguro.uol.com.br/';
+const productionURL = 'https://ws.pagseguro.uol.com.br';
+const sandboxURL = 'https://ws.sandbox.pagseguro.uol.com.br';
 
 class PagSeguroCheckout {
   private _isSandbox!: boolean;
