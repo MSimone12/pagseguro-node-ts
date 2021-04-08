@@ -83,6 +83,39 @@ declare module Checkout {
     creditCard: CreditCard;
   }
 
+  export interface PaymentMethod {
+    type: string;
+    code: string;
+  }
+
+  export interface CreditorFees {
+    intermediationRateAmount: string;
+    intermediationFeeAmount: string;
+  }
+
+  export interface Transaction {
+    date: Date;
+    code: string;
+    reference: string;
+    type: string;
+    status: string;
+    paymentMethod: PaymentMethod;
+    grossAmount: string;
+    discountAmount: string;
+    creditorFees: CreditorFees;
+    netAmount: string;
+    extraAmount: string;
+    installmentCount: string;
+    itemCount: string;
+    items: Items;
+    sender: Sender;
+    shipping: Shipping;
+  }
+
+  export interface GetTransactionResponse {
+    transaction: Transaction;
+  }
+
   export interface PaymentResponse {
     code: string[];
     date: Date[];

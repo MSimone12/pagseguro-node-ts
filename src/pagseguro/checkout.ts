@@ -3,9 +3,6 @@ import { fromXML } from '../utils/xml';
 
 const xml = require('jstoxml');
 
-const header: string =
-  '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
-
 var config = (url: string, payment: Checkout.Payment): AxiosRequestConfig => ({
   method: 'post',
   url,

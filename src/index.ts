@@ -3,9 +3,10 @@ import { createSession } from './pagseguro/session';
 import { CreditCardToken, PagSeguroProps } from './interface';
 
 import { checkout } from './pagseguro/checkout';
+import { getTransaction } from './pagseguro/getTransaction';
 
-const productionURL = 'https://ws.pagseguro.uol.com.br/v2';
-const sandboxURL = 'https://ws.sandbox.pagseguro.uol.com.br/v2';
+const productionURL = 'https://ws.pagseguro.uol.com.br/';
+const sandboxURL = 'https://ws.sandbox.pagseguro.uol.com.br/';
 
 class PagSeguroCheckout {
   private _isSandbox!: boolean;
@@ -26,7 +27,8 @@ class PagSeguroCheckout {
     this._items = [];
   }
 
-  private _getSessionUrl = (): string => `${this._url}/sessions?${this._auth}`;
+  private _getSessionUrl = (): string =>
+    `${this._url}/v2/sessions?${this._auth}`;
 
   createSession = async () => {
     const { id } = await createSession(this._getSessionUrl());
@@ -44,8 +46,14 @@ class PagSeguroCheckout {
     this._billingAddress = request.billingAddress;
   };
 
+  private getNotificationUrl = (notificationToken: string): string =>
+    `${this._url}/v3/transactions/notifications/${notificationToken}?${this._auth}`;
+
+  private getTransactionDetailsUrl = (code: string): string =>
+    `${this._url}/v3/transactions/${code}?${this._auth}`;
+
   private _getTransactionUrl = (): string =>
-    `${this._url}/transactions?${this._auth}`;
+    `${this._url}/v2/transactions?${this._auth}`;
 
   reference = (ref: string) => (this._reference = ref);
 
@@ -113,6 +121,16 @@ class PagSeguroCheckout {
       this._getTransactionUrl(),
       this._buildPayment(this._buildCreditCardData()),
     );
+
+  getTransactionByNotificationCode = (
+    notificationCode: string,
+  ): Promise<Checkout.GetTransactionResponse> =>
+    getTransaction(this.getNotificationUrl(notificationCode));
+
+  getTransactionByCode = (
+    code: string,
+  ): Promise<Checkout.GetTransactionResponse> =>
+    getTransaction(this.getTransactionDetailsUrl(code));
 }
 
 export default PagSeguroCheckout;
