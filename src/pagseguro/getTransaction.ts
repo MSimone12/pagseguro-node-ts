@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import qs from 'qs';
+import * as Checkout from '../types/checkout';
+import { fromXML } from '../utils/xml';
 
 const config = (url: string): AxiosRequestConfig => ({
   method: 'get',
@@ -12,5 +13,7 @@ export const getTransaction = async (
 ): Promise<Checkout.GetTransactionResponse> => {
   const { data } = await axios(config(url));
 
-  return data as Checkout.GetTransactionResponse;
+  const json = await fromXML(data);
+
+  return json as Checkout.GetTransactionResponse;
 };

@@ -1,3 +1,5 @@
+import * as Checkout from './checkout';
+
 export interface SessionResponse {
   id: string;
 }

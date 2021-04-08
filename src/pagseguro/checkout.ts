@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import * as Checkout from '../types/checkout';
 import { fromXML } from '../utils/xml';
 
 const xml = require('jstoxml');

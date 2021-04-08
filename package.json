@@ -1,11 +1,10 @@
 {
   "name": "pagseguro-checkout-ts",
-  "version": "0.1.2",
+  "version": "0.1.18",
   "description": "PagSeguro Checkout API",
   "main": "./build/index.js",
   "scripts": {
-    "prepublish": "npm run build",
-    "build": "tsc"
+    "build": "rm -rf build && tsc"
   },
   "files": [
     "build",
