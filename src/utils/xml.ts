@@ -1,4 +1,3 @@
 import xml from 'xml2js';
-import {promisify} from 'util'
 
-export const fromXML = promisify(xml.parseString);
+export const fromXML = xml.parseStringPromise;

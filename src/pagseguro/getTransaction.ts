@@ -3,28 +3,11 @@ import * as Checkout from '../types/checkout';
 import { fromXML } from '../utils/xml';
 
 interface TransactionResponse {
-  // transaction: {
-  //   date: string[];
-  //   code: string[];
-  //   reference: string[];
-  //   type: string[];
-  //   status: string[];
-  //   lastEventDate: Date[];
-  //   paymentMethod: Array<Object>[];
-  //   grossAmount: string[];
-  //   discountAmount: string[];
-  //   creditorFees: Array<Object>[];
-  //   netAmount: string[];
-  //   extraAmount: string[];
-  //   escrowEndDate: Date[];
-  //   installmentCount: string[];
-  //   itemCount: string[];
-  //   items: Array<Object>[];
-  //   sender: Array<Object>[];
-  //   gatewaySystem: Array<Object>[];
-  //   primaryReceiver: Array<Object>[];
-  // };
-  transaction: Map<String, Array<any>>;
+  transaction: Object;
+}
+
+interface NormalObject {
+  [id: string]: any;
 }
 
 const config = (url: string): AxiosRequestConfig => ({
@@ -32,6 +15,30 @@ const config = (url: string): AxiosRequestConfig => ({
   url: url,
   headers: {},
 });
+
+const normalizeResponse = (obj: NormalObject): NormalObject => {
+  const specialKeys = ['items', 'documents'];
+  let res: NormalObject = {};
+  Object.entries(obj).forEach(entry => {
+    const [key, value] = entry;
+    res[key] = Array.isArray(value) && value.length === 1 ? value[0] : value;
+    if (typeof res[key] === 'object') {
+      res[key] = Array.isArray(res[key])
+        ? res[key].map((val: any) => normalizeResponse(val))
+        : normalizeResponse(res[key]);
+    }
+
+    if (specialKeys.includes(key)) {
+      res[key] = Object.values(res[key]).reduce(
+        (prev: Array<any>, curr: any) =>
+          Array.isArray(curr) ? [...prev, ...curr] : [...prev, curr],
+        [],
+      );
+    }
+  });
+
+  return res;
+};
 
 export const getTransaction = async (
   url: string,
@@ -42,7 +49,7 @@ export const getTransaction = async (
 
   const { transaction } = json as TransactionResponse;
 
-  Object.keys(transaction).forEach(console.log);
+  const response: NormalObject = normalizeResponse(transaction);
 
-  return json as Checkout.GetTransactionResponse;
+  return { transaction: response } as Checkout.GetTransactionResponse;
 };
