@@ -76,10 +76,8 @@ checkout.sender({
   },
   documents: [
     {
-      document: {
-        type: 'CPF',
-        value: '44528040808',
-      },
+      type: 'CPF',
+      value: '44528040808',
     },
   ],
 });

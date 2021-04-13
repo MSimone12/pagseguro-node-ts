@@ -46,7 +46,7 @@ export interface Installment {
 
 export interface Holder {
   name: string;
-  documents: Documents[];
+  documents: Document[];
   birthDate: string;
   phone: Phone;
 }
