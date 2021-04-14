@@ -69,13 +69,17 @@ export const checkout = async (
   try {
     const normalizedPayment = normalizePayment(payment);
 
+    console.log('[pagseguro] => ', normalizedPayment);
+
     const { data } = await axios(config(url, normalizedPayment));
 
     const json = await fromXML(data);
 
+    console.log('[pagseguro] => ', json);
     const { transaction } = json as TransactionResponse;
 
     const response = normalizeResponse(transaction);
+    console.log('[pagseguro] => ', response);
 
     return { transaction: response } as Checkout.GetTransactionResponse;
   } catch (error) {
